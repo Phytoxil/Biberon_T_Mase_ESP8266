@@ -15,8 +15,8 @@ const int STEP_ARRIVEE = 100;
                        
 
 //info connexion
-const char * SSID = "DESKTOP-steve-test";
-const char * PASSWORD = "f5O:1480";
+const char * SSID = "xxxx";
+const char * PASSWORD = "xxxx";
 
 
 String topic_left = "souris_city/01/local/bottle_left";
@@ -38,7 +38,7 @@ String clientId = "ESP8266_Yanis_right"; //bien veiller à mettre le bon idenfia
 //String Topic_base = Experience + Type_device + clientId +"/";
 
 String id_mqtt = clientId;
-String pass_mqtt = "yanis";
+String pass_mqtt = "xxxx";
 String Hostname_wifi = clientId;
 
 //IP address
