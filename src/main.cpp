@@ -22,26 +22,10 @@ void decalage(bool direction, float temps_seconds){
     delay(temps_seconds);
   }
 }
-void callback(char* topic, byte *payload, unsigned int length) {
 
-    Serial.print("message arrived[");
-    Serial.print(topic);
-    Serial.print("]");
-    
-    for(unsigned int i = 0; i < length; i++){
-      Serial.print((char)payload[i]);
-    }
-  if (strcmp(topic, "souris_city/01/local/bottle_right/state/set") == 0) {
-    if ((char)payload[0] == '0') {
-      control_motor(SPEED, LOW); //pas dispo
-    }
-    else if ((char)payload[0] == '1') {
-      control_motor(SPEED, HIGH); //dispo
-  }
- }
-}
 void MQTTsubscrib(){
-    MQTTclient.subscribe("souris_city/01/local/bottle_right/state/set");
+
+    MQTTclient.subscribe(topic_right_state_set.c_str());
     //MQTTclient.subscribe("device/camera");
     MQTTclient.publish("souris_city/01/local/$connected", "bottle_right",true);
     String jsonString = "{"
@@ -58,7 +42,7 @@ void MQTTsubscrib(){
                     "}"
                     "]"
                     "}";
-    MQTTclient.publish("souris_city/01/local/bottle_right/$meta",jsonString.c_str(),true);/*donne le detail des propriétes. ()*/
+    MQTTclient.publish(topic_right_meta.c_str(),jsonString.c_str(),true);/*donne le detail des propriétes. ()*/
 }
 void MQTTconnect(){
   while (!MQTTclient.connected()) {
@@ -89,6 +73,8 @@ void calibrateMotor() {
   decalage(LOW, 1.5);
   control_motor(0, NULL);
 }
+
+void callback(char* topic, byte *payload, unsigned int length);
 
 void setup() {
 
@@ -131,11 +117,31 @@ void loop() {
   if (digitalRead(PIN_Switch_Stop) == LOW) {
     decalage(HIGH, 1.5);
     control_motor(0, NULL);
-    MQTTclient.publish("souris_city/01/local/bottle_right/state", "0");
+    MQTTclient.publish(topic_right_state.c_str(), "0");
+   
   }
   if (digitalRead(PIN_Switch_positionInitiale) == LOW) {
     decalage(LOW, 1.5);
     control_motor(0, NULL);
-    MQTTclient.publish("souris_city/01/local/bottle_right/state", "1");
+    MQTTclient.publish(topic_right_state.c_str(), "1");
   }
+}
+
+void callback(char* topic, byte *payload, unsigned int length) {
+
+    Serial.print("message arrived[");
+    Serial.print(topic);
+    Serial.print("]");
+    
+    for(unsigned int i = 0; i < length; i++){
+      Serial.print((char)payload[i]);
+    }
+  if (strcmp(topic, topic_right_state_set.c_str()) == 0) {
+    if ((char)payload[0] == '0') {
+      control_motor(SPEED, LOW); //pas dispo
+    }
+    else if ((char)payload[0] == '1') {
+      control_motor(SPEED, HIGH); //dispo
+  }
+ }
 }

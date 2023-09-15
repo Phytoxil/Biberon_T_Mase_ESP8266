@@ -19,6 +19,16 @@ const char * SSID = "DESKTOP-steve-test";
 const char * PASSWORD = "f5O:1480";
 
 
+String topic_left = "souris_city/01/local/bottle_left";
+String topic_left_meta = topic_left + "/$meta";
+String topic_left_state = topic_left + "/state";
+String topic_left_state_set = topic_left_state + "/set";
+
+String topic_right= "souris_city/01/local/bottle_right";
+String topic_right_meta = topic_right + "/$meta";
+String topic_right_state = topic_right + "/state";
+String topic_right_state_set = topic_right_state + "/set";
+
 String clientId = "ESP8266_Yanis_right"; //bien veiller à mettre le bon idenfiant (left ou right)
 //String Experience ="ESP8266/";
 //String Type_device = "motor/";
