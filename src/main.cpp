@@ -2,6 +2,7 @@
 #include <WiFiClient.h>
 #include <Arduino.h>
 #include <info.h>
+#include <settings.h>
 
 
 WiFiClient wifiClient;
@@ -76,9 +77,11 @@ void calibrateMotor() {
 
 void callback(char* topic, byte *payload, unsigned int length);
 
+
+
 void setup() {
 
-  Serial.begin(115200L);
+  Serial.begin(115200);
 
   pinMode(PIN_Motor_PWR, OUTPUT);
   pinMode(PIN_Motor_DIR, OUTPUT);
@@ -97,7 +100,7 @@ void setup() {
   Serial.println(SSID);
   Serial.print("IP Address");
   Serial.println(WiFi.localIP());
-
+  
   MQTTclient.setServer(server, 1883);
   MQTTclient.setCallback(callback);
   MQTTclient.setKeepAlive(5);

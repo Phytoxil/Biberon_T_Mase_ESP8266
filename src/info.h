@@ -14,9 +14,9 @@ const int STEP_DEPART = 0;
 const int STEP_ARRIVEE = 100;
                        
 
-//info connexion
-const char * SSID = "xxxx";
-const char * PASSWORD = "xxxx";
+// //info connexion
+// const char * SSID = "xxx";
+// const char * PASSWORD = "xxxx";
 
 
 String topic_left = "souris_city/01/local/bottle_left";
