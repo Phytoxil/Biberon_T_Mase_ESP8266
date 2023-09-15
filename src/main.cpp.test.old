@@ -1,0 +1,28 @@
+#include <Arduino.h>
+#include <info.h>
+void fonction(int temps_fonction,  bool direction){
+  digitalWrite(PIN_Motor_DIR, direction);
+  analogWrite(PIN_Motor_PWR, SPEED);
+  delay(temps_fonction); // temps de fonction
+  analogWrite(PIN_Motor_PWR, 0);
+  //delay(temps_arret); // temps d'arret
+}
+void control_motor(int Speed, bool direction){
+      digitalWrite(PIN_Motor_DIR, direction); // direction low ==> backward or high ==> forward
+      analogWrite(PIN_Motor_PWR, Speed); // Speed from 0 to SPEED = 255
+}
+void setup() {
+
+  Serial.begin(115200L);
+  pinMode(PIN_Motor_PWR, OUTPUT);
+  pinMode(PIN_Motor_DIR, OUTPUT);
+
+}
+void loop() {
+ //fonction(5000,LOW); //
+
+  control_motor(SPEED, HIGH); 
+  delay(5000); // temps de fonction
+  control_motor(0, NULL);
+  delay(1000);
+}
